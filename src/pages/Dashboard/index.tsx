@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
-      const response = await api.get('/products');
+      const response = await api.get<Product[]>('/products');
       setProducts(response.data);
     }
 
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   function handleAddToCart(item: Product): void {
-    // TODO
+    addToCart(item);
   }
 
   return (
@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
       <ProductContainer>
         <ProductList
           data={products}
-          keyExtractor={item => item.id}
+          keyExtractor={(item: Product) => item.id}
           ListFooterComponent={<View />}
           ListFooterComponentStyle={{
             height: 80,
